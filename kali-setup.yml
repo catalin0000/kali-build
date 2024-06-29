@@ -3,15 +3,6 @@
   hosts: all
   become: yes
   tasks:
-    - name: Install common tools
-      apt:
-        name:
-          - git
-          - vim
-          - nmap
-          - net-tools
-          - curl
-        state: present
     - name: Install expect
       apt:
         name: expect
