@@ -3,132 +3,203 @@
   hosts: all
   become: yes
   tasks:
-    # - name: Install common tools
-    #   apt:
-    #     name:
-    #       - git
-    #       - vim
-    #       - nmap
-    #       - net-tools
-    #       - curl
-    #     state: present
-    # - name: Install expect
-    #   apt:
-    #     name: expect
-    #     state: present
-    # - name: Create 'repo' directory in /
-    #   file:
-    #     path: /repo
-    #     state: directory
-    #     mode: '0755'
-    # - name: Change to 'repo' directory and download pimpmykali.sh
-    #   shell: curl -O https://raw.githubusercontent.com/Dewalt-arch/pimpmykali/master/pimpmykali.sh
-    #   args:
-    #     chdir: /repo
-    # - name: Make pimpmykali.sh executable
-    #   file:
-    #     path: /repo/pimpmykali.sh
-    #     mode: '0755'
-    # - name: Create expect script to run pimpmykali.sh
-    #   copy:
-    #     content: |
-    #       #!/usr/bin/expect -f
-    #       set timeout -1
-    #       spawn /repo/pimpmykali.sh
-    #       expect "*Select an option*"
-    #       send -- "N\r"
-    #       expect "*Do you want to re-enable the ability to login as root in kali?*"
-    #       send -- "N\r"
-    #       expect eof
-    #     dest: /repo/run_pimpmykali.exp
-    #     mode: '0755'
-    # - name: Run pimpmykali.sh using expect script
-    #   shell: ./run_pimpmykali.exp
-    #   args:
-    #     chdir: /repo
+    - name: Install common tools
+      apt:
+        name:
+          - git
+          - vim
+          - nmap
+          - net-tools
+          - curl
+        state: present
+    - name: Install expect
+      apt:
+        name: expect
+        state: present
 
-    # - name: Install Oh My Zsh
-    #   become: yes
-    #   become_user: kali
-    #   shell:
-    #     cmd: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-    #   args:
-    #     executable: /bin/bash
+    - name: Create 'repo' directory in /
+      file:
+        path: /repo
+        state: directory
+        mode: '0755'
+    - name: Change to 'repo' directory and download pimpmykali.sh
+      shell: curl -O https://raw.githubusercontent.com/Dewalt-arch/pimpmykali/master/pimpmykali.sh
+      args:
+        chdir: /repo
+    - name: Make pimpmykali.sh executable
+      file:
+        path: /repo/pimpmykali.sh
+        mode: '0755'
+    - name: Create expect script to run pimpmykali.sh
+      copy:
+        content: |
+          #!/usr/bin/expect -f
+          set timeout -1
+          spawn /repo/pimpmykali.sh
+          expect "*Select an option*"
+          send -- "N\r"
+          expect "*Do you want to re-enable the ability to login as root in kali?*"
+          send -- "N\r"
+          expect eof
+        dest: /repo/run_pimpmykali.exp
+        mode: '0755'
+    - name: Run pimpmykali.sh using expect script
+      shell: ./run_pimpmykali.exp
+      args:
+        chdir: /repo
 
-
-    # - name: Install Oh My Posh
-    #   shell:
-    #     cmd: curl -s https://ohmyposh.dev/install.sh | bash -s
-    #   args:
-    #     executable: /bin/bash
-
-    # - name: Mv Oh My Posh themes
-    #   shell:
-    #     cmd: cp -r /root/.cache/oh-my-posh /home/kali/.config/.
-    #   args:
-    #     executable: /bin/bash
-
-    # - name: Install AutoSuggestions plugin
-    #   shell:
-    #     cmd: git clone https://github.com/zsh-users/zsh-autosuggestions.git /home/kali/.oh-my-zsh/plugins/zsh-autosuggestions
-    #   args:
-    #     executable: /bin/bash
-    #
-    # - name: Install syntax highlighting plugin
-    #   shell:
-    #     cmd: git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /home/kali/.oh-my-zsh/plugins/zsh-syntax-highlighting
-    #   args:
-    #     executable: /bin/bash
-
-    # - name: Install fast syntax highlighting plugin
-    #   shell:
-    #     cmd: git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git /home/kali/.oh-my-zsh/plugins/fast-syntax-highlighting
-    #   args:
-    #     executable: /bin/bash
-
-    #
-    # - name: Install autocomplete plugin if ever needed
-    #   shell:
-    #     cmd: git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git /home/kali/.oh-my-zsh/plugins/zsh-autocomplete
-    #   args:
-    #     executable: /bin/bash
+    - name: Install Oh My Zsh
+      become: yes
+      become_user: kali
+      shell:
+        cmd: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+      args:
+        executable: /bin/bash
 
 
-    # - name: Update .zshrc with the new theme
-    #   lineinfile:
-    #     path: /home/kali/.zshrc
-    #     search_string: 'plugins=(git)'
-    #     line: 'plugins=(git zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting)'
+    - name: Install Oh My Posh
+      shell:
+        cmd: curl -s https://ohmyposh.dev/install.sh | bash -s
+      args:
+        executable: /bin/bash
 
-    # - name: Install NerdFont Hack
-    #   shell:
-    #     cmd: oh-my-posh font install hack
-    #   args:
-    #     executable: /bin/bash
-    #
-    # - name: Install NerdFont Hack
-    #   shell:
-    #     cmd: oh-my-posh font install AnonymousPro
-    #   args:
-    #     executable: /bin/bash
+    - name: Mv Oh My Posh themes
+      shell:
+        cmd: cp -r /root/.cache/oh-my-posh /home/kali/.config/.
+      args:
+        executable: /bin/bash
 
-    # - name: Add a new line at the end of a file
-    #   lineinfile:
-    #     path: /home/kali/.zshrc
-    #     line: 'eval "$(oh-my-posh init zsh --config /home/kali/.config/oh-my-posh/themes/amro.omp.json)"'
-    #     insertafter: EOF
+    - name: Install AutoSuggestions plugin
+      shell:
+        cmd: git clone https://github.com/zsh-users/zsh-autosuggestions.git /home/kali/.oh-my-zsh/plugins/zsh-autosuggestions
+      args:
+        executable: /bin/bash
 
-    # - name: Update qterminal config
-    #   lineinfile:
-    #     path: /home/kali/.config/qterminal.org/qterminal.ini
-    #     search_string: 'fontFamily='
-    #     line: 'fontFamily=Hack Nerd Font'
-    #
-    # - name: Update qterminal config
-    #   lineinfile:
-    #     path: /home/kali/.config/qterminal.org/qterminal.ini
-    #     search_string: 'fontSize='
-    #     line: 'fontSize=12'
+    - name: Install syntax highlighting plugin
+      shell:
+        cmd: git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /home/kali/.oh-my-zsh/plugins/zsh-syntax-highlighting
+      args:
+        executable: /bin/bash
+
+    - name: Install fast syntax highlighting plugin
+      shell:
+        cmd: git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git /home/kali/.oh-my-zsh/plugins/fast-syntax-highlighting
+      args:
+        executable: /bin/bash
+
+
+    - name: Install autocomplete plugin if ever needed
+      shell:
+        cmd: git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git /home/kali/.oh-my-zsh/plugins/zsh-autocomplete
+      args:
+        executable: /bin/bash
+
+
+    - name: Update .zshrc with the new theme
+      lineinfile:
+        path: /home/kali/.zshrc
+        search_string: 'plugins=(git)'
+        line: 'plugins=(git zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting)'
+
+    - name: Install NerdFont Hack
+      shell:
+        cmd: oh-my-posh font install hack
+      args:
+        executable: /bin/bash
+
+    - name: Install NerdFont Hack
+      shell:
+        cmd: oh-my-posh font install AnonymousPro
+      args:
+        executable: /bin/bash
+
+    - name: Add a new line at the end of a file
+      lineinfile:
+        path: /home/kali/.zshrc
+        line: 'eval "$(oh-my-posh init zsh --config /home/kali/.config/oh-my-posh/themes/amro.omp.json)"'
+        insertafter: EOF
+
+    - name: Update qterminal config
+      lineinfile:
+        path: /home/kali/.config/qterminal.org/qterminal.ini
+        search_string: 'fontFamily='
+        line: 'fontFamily=Hack Nerd Font'
+
+    - name: Update qterminal config
+      lineinfile:
+        path: /home/kali/.config/qterminal.org/qterminal.ini
+        search_string: 'fontSize='
+        line: 'fontSize=12'
+
+    - name: Update qterminal transparency
+      lineinfile:
+        path: /home/kali/.config/qterminal.org/qterminal.ini
+        search_string: 'ApplicationTransparency='
+        line: 'ApplicationTransparency=0'
+
+    - name: Add Sublime-text repo
+      shell:
+        cmd: |
+          wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg > /dev/null
+          echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+      args:
+        executable: /bin/bash
+
+    - name: Install multiple packages
+      apt:
+        name:
+          - zaproxy
+          - nuclei
+          - testssl.sh
+          - sublime-text
+          - kate
+          - feroxbuster
+        state: present
+        update_cache: yes
+
+    - name: Create 'repo' directory in /
+      file:
+        path: /mnt/hgfs
+        state: directory
+        mode: '0755'
+
+    - name: Add shared folder
+      lineinfile:
+        path: /etc/fstab
+        line: 'vmhgfs-fuse /mnt/hgfs fuse defaults,allow_other 0 0'
+        insertafter: EOF
+
+
+    - name: Change perm on /role
+      shell:
+        cmd: chown kali:kali /repo
+      args:
+        executable: /bin/bash
+
+    - name: Add pipx path
+      become: yes
+      become_user: kali
+      shell:
+        cmd: pipx ensurepath
+      args:
+        executable: /bin/bash
+
+    - name: Download repos
+      shell:
+        cmd: |
+          cd /repo
+          git clone https://github.com/p0dalirius/Coercer
+          git clone https://github.com/topotam/PetitPotam
+      args:
+        executable: /bin/bash
+
+
+
+
+
+
+
+
 
 
 
