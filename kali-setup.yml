@@ -54,7 +54,7 @@
       args:
         executable: /bin/bash
 
-    - name: Mv Oh My Posh themes
+    - name: Copy Oh My Posh themes
       shell:
         cmd: cp -r /root/.cache/oh-my-posh /home/kali/.config/.
       args:
@@ -145,6 +145,11 @@
           - sublime-text
           - kate
           - feroxbuster
+          - wireguard
+          - mosh
+          - oscanner
+          - tnscmd10g
+          - wkhtmltopdf
         state: present
         update_cache: yes
 
@@ -181,16 +186,41 @@
           cd /repo
           git clone https://github.com/p0dalirius/Coercer
           git clone https://github.com/topotam/PetitPotam
+          git clone https://github.com/AlmondOffSec/PassTheCert
+          git clone https://github.com/ShutdownRepo/pywhisker
+          git clone https://github.com/dirkjanm/krbrelayx
+          git clone https://github.com/CravateRouge/bloodyAD
+          git clone https://github.com/dirkjanm/PKINITtools
+          git clone https://github.com/sqshr/naptest
+          git clone https://github.com/Tib3rius/AutoRecon
+          git clone https://github.com/Ekultek/WhatWaf
+          git clone https://github.com/threat9/routersploit
       args:
         executable: /bin/bash
 
 
+    - name: Copy nessus over
+      ansible.builtin.copy:
+        src: extras/Nessus-10.7.4-debian10_amd64.deb
+        dest: /tmp/nessus.deb
+        owner: kali
+        group: kali
+        mode: '0744'
 
+    - name: Install nessus
+      ansible.builtin.apt:
+        deb: /tmp/nessus.deb
 
+    - name: Start nessus
+      ansible.builtin.service:
+        name: nessusd
+        state: started
 
-
-
-
+    - name: Nessus listen locally
+      shell:
+        cmd: /opt/nessus/sbin/nessuscli fix --set listen_address=127.0.0.1
+      args:
+        executable: /bin/bash
 
 
 
