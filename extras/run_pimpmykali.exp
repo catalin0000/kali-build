@@ -1,0 +1,8 @@
+#!/usr/bin/expect -f
+set timeout -1
+spawn /repo/pimpmykali/pimpmykali.sh
+expect "*Select an option*"
+send -- "N\r"
+expect "*Do you want to re-enable the ability to login as root in kali?*"
+send -- "N\r"
+expect eof
