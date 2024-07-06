@@ -25,7 +25,7 @@ search_string='plugins=(git)'
 new_line='plugins=(git zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting)'
 sed -i "s|$search_string|$new_line|" "$file"
 
-oh-my-posh font install hack
+oh-my-posh font install Hack
 oh-my-posh font install AnonymousPro
 
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg > /dev/null
@@ -60,7 +60,7 @@ git clone https://github.com/Tib3rius/AutoRecon
 git clone https://github.com/Ekultek/WhatWaf
 git clone https://github.com/threat9/routersploit
 
-file='/home/kali/.config/qterminal.org/qterminal.ini
+file='/home/kali/.config/qterminal.org/qterminal.ini'
 search_string='fontFamily='
 new_line='fontFamily=Hack Nerd Font'
 sed -i "s|^${search_string}.*|${new_line}|" "$file"
