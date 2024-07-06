@@ -199,28 +199,28 @@
         executable: /bin/bash
 
 
-    - name: Copy nessus over
-      ansible.builtin.copy:
-        src: extras/Nessus-10.7.4-debian10_amd64.deb
-        dest: /tmp/nessus.deb
-        owner: kali
-        group: kali
-        mode: '0744'
-
-    - name: Install nessus
-      ansible.builtin.apt:
-        deb: /tmp/nessus.deb
-
-    - name: Start nessus
-      ansible.builtin.service:
-        name: nessusd
-        state: started
-
-    - name: Nessus listen locally
-      shell:
-        cmd: /opt/nessus/sbin/nessuscli fix --set listen_address=127.0.0.1
-      args:
-        executable: /bin/bash
+    # - name: Copy nessus over
+    #   ansible.builtin.copy:
+    #     src: extras/Nessus-10.7.4-debian10_amd64.deb
+    #     dest: /tmp/nessus.deb
+    #     owner: kali
+    #     group: kali
+    #     mode: '0744'
+    #
+    # - name: Install nessus
+    #   ansible.builtin.apt:
+    #     deb: /tmp/nessus.deb
+    #
+    # - name: Start nessus
+    #   ansible.builtin.service:
+    #     name: nessusd
+    #     state: started
+    #
+    # - name: Nessus listen locally
+    #   shell:
+    #     cmd: /opt/nessus/sbin/nessuscli fix --set listen_address=127.0.0.1
+    #   args:
+    #     executable: /bin/bash
 
 
 
