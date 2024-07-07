@@ -79,4 +79,3 @@ search_string='ApplicationTransparency='
 new_line='ApplicationTransparency=0'
 sed -i "s|^${search_string}.*|${new_line}|" "$file"
 
-qterminal &
