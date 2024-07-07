@@ -7,6 +7,6 @@ how to run it? check below:
 
 # install.sh
 
-just run it as root or with sudo...
+just run it from a root terminal
 
-`sudo bash install.sh`
+`bash install.sh`
