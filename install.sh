@@ -1,6 +1,7 @@
 #!/bin/bash
 
 mkdir /repo
+chown kali:kali /repo
 cp extras/run_pimpmykali.exp /repo/run_pimpmykali.exp
 cd /repo
 git clone https://github.com/Dewalt-arch/pimpmykali
@@ -25,10 +26,13 @@ search_string='plugins=(git)'
 new_line='plugins=(git zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting)'
 sed -i "s|$search_string|$new_line|" "$file"
 
-oh-my-posh font install Hack
-oh-my-posh font install AnonymousPro
+command='oh-my-posh font install Hack'
+sudo -u kali /bin/bash -c "$command"
 
-wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg > /dev/null
+command='oh-my-posh font install AnonymousPro'
+sudo -u kali /bin/bash -c "$command"
+
+wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg > /dev/null
 echo "deb https://download.sublimetext.com/ apt/stable/" | tee /etc/apt/sources.list.d/sublime-text.list
 
 file="/home/kali/.zshrc"
@@ -46,8 +50,6 @@ echo "$line" >> "$file"
 command="pipx ensurepath"
 sudo -u kali /bin/bash -c "$command"
 
-chown kali:kali /repo
-
 git clone https://github.com/p0dalirius/Coercer
 git clone https://github.com/topotam/PetitPotam
 git clone https://github.com/AlmondOffSec/PassTheCert
@@ -59,6 +61,10 @@ git clone https://github.com/sqshr/naptest
 git clone https://github.com/Tib3rius/AutoRecon
 git clone https://github.com/Ekultek/WhatWaf
 git clone https://github.com/threat9/routersploit
+git clone https://github.com/dionach/CMSmap
+git clone https://github.com/codingo/NoSQLMap
+git clone https://github.com/samratashok/nishang
+git clone https://github.com/DanMcInerney/net-creds
 
 file='/home/kali/.config/qterminal.org/qterminal.ini'
 search_string='fontFamily='
