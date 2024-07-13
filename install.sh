@@ -40,7 +40,7 @@ line='eval "$(oh-my-posh init zsh --config /home/kali/.config/oh-my-posh/themes/
 echo "$line" >> "$file"
 
 apt update
-apt install -y zaproxy nuclei testssl.sh sublime-text kate feroxbuster wireguard mosh oscanner tnscmd10g wkhtmltopdf
+apt install -y zaproxy nuclei testssl.sh sublime-text kate feroxbuster wireguard mosh oscanner tnscmd10g wkhtmltopdf jq
 
 mkdir /mnt/hgfs
 file="/etc/fstab"
@@ -65,6 +65,11 @@ git clone https://github.com/dionach/CMSmap
 git clone https://github.com/codingo/NoSQLMap
 git clone https://github.com/samratashok/nishang
 git clone https://github.com/DanMcInerney/net-creds
+
+sudo -u kali /bin/bash -c "qterminal &"
+sleep 1
+sudo -u kali /bin/bash -c "pkill qterminal"
+sleep 1
 
 file='/home/kali/.config/qterminal.org/qterminal.ini'
 search_string='fontFamily='
