@@ -32,15 +32,12 @@ sudo -u kali /bin/bash -c "$command"
 command='oh-my-posh font install AnonymousPro'
 sudo -u kali /bin/bash -c "$command"
 
-wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg > /dev/null
-echo "deb https://download.sublimetext.com/ apt/stable/" | tee /etc/apt/sources.list.d/sublime-text.list
-
 file="/home/kali/.zshrc"
 line='eval "$(oh-my-posh init zsh --config /home/kali/.config/oh-my-posh/themes/amro.omp.json)"'
 echo "$line" >> "$file"
 
 apt update
-apt install -y zaproxy nuclei testssl.sh sublime-text kate feroxbuster wireguard mosh oscanner tnscmd10g wkhtmltopdf jq
+apt install -y zaproxy nuclei testssl.sh kate feroxbuster wireguard mosh oscanner tnscmd10g wkhtmltopdf jq
 
 mkdir /mnt/hgfs
 file="/etc/fstab"
