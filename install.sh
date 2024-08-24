@@ -12,10 +12,6 @@ expect /repo/run_pimpmykali.exp
 command='sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended'
 sudo -u kali /bin/bash -c "$command"
 
-curl -s https://ohmyposh.dev/install.sh | bash -s
-
-cp -r /root/.cache/oh-my-posh /home/kali/.config/.
-
 git clone https://github.com/zsh-users/zsh-autosuggestions.git /home/kali/.oh-my-zsh/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /home/kali/.oh-my-zsh/plugins/zsh-syntax-highlighting
 git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git /home/kali/.oh-my-zsh/plugins/fast-syntax-highlighting
@@ -26,15 +22,16 @@ search_string='plugins=(git)'
 new_line='plugins=(git zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting)'
 sed -i "s|$search_string|$new_line|" "$file"
 
-command='oh-my-posh font install Hack'
-sudo -u kali /bin/bash -c "$command"
-
-command='oh-my-posh font install AnonymousPro'
+command='git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k'
 sudo -u kali /bin/bash -c "$command"
 
 file="/home/kali/.zshrc"
-line='eval "$(oh-my-posh init zsh --config /home/kali/.config/oh-my-posh/themes/amro.omp.json)"'
-echo "$line" >> "$file"
+search_string='ZSH_THEME='
+new_line='ZSH_THEME="powerlevel10k/powerlevel10k"'
+sed -i "s|^$search_string.*|$new_line|" "$file"
+
+cp extras/.p10k.zsh /home/kali/.p10k.zsh
+echo /home/kali/.zshrc >> '[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh'
 
 apt update
 apt install -y zaproxy nuclei testssl.sh kate feroxbuster wireguard mosh oscanner tnscmd10g wkhtmltopdf jq
@@ -62,6 +59,7 @@ git clone https://github.com/dionach/CMSmap
 git clone https://github.com/codingo/NoSQLMap
 git clone https://github.com/samratashok/nishang
 git clone https://github.com/DanMcInerney/net-creds
+sudo -u kali /bin/bash -c "pipx install git+https://github.com/Pennyw0rth/NetExec"
 
 sudo -u kali /bin/bash -c "qterminal &"
 sleep 1
